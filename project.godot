@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Godot Adventurers"
-run/main_scene="res://src/Scenes/DemoRobot.tscn"
+run/main_scene="res://src/Scenes/Player.tscn"
 config/icon="res://icon.png"
 
 [input]

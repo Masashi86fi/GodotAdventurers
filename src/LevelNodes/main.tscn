@@ -1,21 +1,22 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
-[ext_resource path="res://MapControls.gd" type="Script" id=2]
-[ext_resource path="res://planet.png" type="Texture" id=3]
-[ext_resource path="res://Planet.gd" type="Script" id=4]
+[ext_resource path="res://src/GameSystems/MapControls.gd" type="Script" id=2]
+[ext_resource path="res://src/LevelObjects/Sprites/planet.png" type="Texture" id=3]
+[ext_resource path="res://src/LevelObjects/Scripts/Planet.gd" type="Script" id=4]
+[ext_resource path="res://src/LevelObjects/Sprites/SpaceBackDrop.png" type="Texture" id=5]
 
-[sub_resource type="Curve" id=4]
+[sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 0.809091 ), 0.0, 3.17455, 0, 0, Vector2( 0.989691, 0.5 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="Gradient" id=3]
+[sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 1, 0 )
 colors = PoolColorArray( 1, 0, 0, 1, 0.235294, 0, 0, 1, 0, 0, 0, 1 )
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 19.5308, 19.647 )
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=4]
 radius = 61.0463
 
 [node name="main" type="Node"]
@@ -32,9 +33,9 @@ __meta__ = {
 
 [node name="Line2D" type="Line2D" parent="Ship"]
 points = PoolVector2Array( 726.19, 178.904 )
-width_curve = SubResource( 4 )
+width_curve = SubResource( 1 )
 default_color = Color( 0.4, 0.501961, 1, 1 )
-gradient = SubResource( 3 )
+gradient = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -45,7 +46,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ship/Trigger"]
-shape = SubResource( 1 )
+shape = SubResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -61,9 +62,14 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Planet"]
-shape = SubResource( 2 )
+shape = SubResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="BackdropGraphic" type="Sprite" parent="."]
+position = Vector2( 480, 496 )
+z_index = -5
+texture = ExtResource( 5 )
 [connection signal="area_entered" from="Ship/Trigger" to="Ship" method="_on_Trigger_area_entered"]
 [connection signal="area_exited" from="Ship/Trigger" to="Ship" method="_on_Trigger_area_exited"]

@@ -9,7 +9,7 @@ var velocity = Vector2()
 
 func _input(event):
 	#input_map L_click is leftclick
-	if event.is_action_pressed('L_click'):
+	if event.is_action_pressed('Left_click'):
 		#using rotation to rotate sprite to mouse position
 		#only rotate sprite
 		$Sprite.rotation = get_global_mouse_position().angle_to_point(position)

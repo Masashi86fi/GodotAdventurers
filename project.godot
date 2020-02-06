@@ -28,7 +28,7 @@ _global_script_class_icons={
 
 config/name="Godot Adventurers"
 run/main_scene="res://src/Actors/PlayerCharacter/Nodes/Player.tscn"
-config/icon="res://src/GameSystems/icon.png"
+config/icon="res://icon.png"
 
 [input]
 
@@ -100,4 +100,4 @@ Block={
 
 [rendering]
 
-environment/default_environment="res://src/GameSystems/default_env.tres"
+environment/default_environment="res://default_env.tres"

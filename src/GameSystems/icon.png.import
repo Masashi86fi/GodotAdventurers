@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/GalaxyOdyssey.png-65c3a76e1fa4c02a9b71348ab51570c4.stex"
+path="res://.import/icon.png-0c9aa9ba74b1e29ae69aa4543746bccf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Sprites/GalaxyOdyssey.png"
-dest_files=[ "res://.import/GalaxyOdyssey.png-65c3a76e1fa4c02a9b71348ab51570c4.stex" ]
+source_file="res://src/GameSystems/icon.png"
+dest_files=[ "res://.import/icon.png-0c9aa9ba74b1e29ae69aa4543746bccf.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

@@ -16,7 +16,7 @@ var ladderFriction = 0.5
 
 onready var mySprite = $Sprite	
 
-func _physics_process(delta):		
+func _physics_process(delta):
 	modGravity = GRAVITY
 	move()
 	
@@ -28,30 +28,28 @@ func _physics_process(delta):
 			modGravity = 0
 			movement.y = lerp(movement.y,0,groundFriction)	
 			movement.x = lerp(movement.x,0,groundFriction)	
-			move()		
-			jump()	
+			move()
+			jump()
 		else:
 			movement.y += modGravity	
-	print(isClimbing)
+	#print(isClimbing)
 	move_and_slide(movement, UP,false)
 	
 func move():	
 	if Input.is_action_pressed("WalkR"):
 		movement.x = min(movement.x + ACCELERATION, MAXSPEED)
-		mySprite.flip_h = false		
+		mySprite.flip_h = false	
 		# Switch animation here for walking or call animation system to run
 	elif Input.is_action_pressed("WalkL"):
 		movement.x = max(movement.x - ACCELERATION, -MAXSPEED)
-		mySprite.flip_h = true				
+		mySprite.flip_h = true
 		#print("Walk anim L")
 	elif Input.is_action_pressed("LadderUP") and canClimb:
 		isClimbing = true		
 		movement.y = max(movement.y - ACCELERATION, -MAXSPEED)
-	elif Input.is_action_pressed("LadderDown") and canClimb:		
+	elif Input.is_action_pressed("LadderDown") and canClimb:
 		isClimbing = true
 		movement.y = min(movement.y + ACCELERATION, MAXSPEED)
-	
-		
 
 func jump():
 	if Input.is_action_just_pressed("Jump"):

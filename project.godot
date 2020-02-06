@@ -12,12 +12,12 @@ _global_script_classes=[ {
 "base": "KinematicBody2D",
 "class": "Actor",
 "language": "GDScript",
-"path": "res://src/Scripts/Actor.gd"
+"path": "res://src/Actors/Scripts/Actor.gd"
 }, {
 "base": "Node",
 "class": "InputCommands",
 "language": "GDScript",
-"path": "res://src/Scripts/InputCommands.gd"
+"path": "res://src/Actors/PlayerCharacter/Scripts/InputCommands.gd"
 } ]
 _global_script_class_icons={
 "Actor": "",
@@ -27,8 +27,8 @@ _global_script_class_icons={
 [application]
 
 config/name="Godot Adventurers"
-run/main_scene="res://src/Actors/Player.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://src/Actors/PlayerCharacter/Nodes/Player.tscn"
+config/icon="res://src/GameSystems/icon.png"
 
 [input]
 
@@ -100,4 +100,4 @@ Block={
 
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+environment/default_environment="res://src/GameSystems/default_env.tres"

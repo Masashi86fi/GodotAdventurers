@@ -1,13 +1,14 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/Actors/PlayerCharacter/Nodes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/LevelObjects/Nodes/Ladders.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/LevelObjects/Sprites/MetalGirdleTile.png" type="Texture" id=3]
-[ext_resource path="res://src/GameSystems/icon.png" type="Texture" id=4]
+[ext_resource path="res://icon.png" type="Texture" id=4]
 [ext_resource path="res://src/LevelObjects/Sprites/MetalPlateTile.png" type="Texture" id=5]
 [ext_resource path="res://src/LevelObjects/Sprites/Ladders.png" type="Texture" id=6]
 [ext_resource path="res://src/LevelObjects/Scripts/Ladder.gd" type="Script" id=7]
 [ext_resource path="res://src/LevelObjects/Scripts/ExitLevel.gd" type="Script" id=8]
+[ext_resource path="res://src/LevelNodes/ActionComboTest.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 160 )
@@ -153,5 +154,8 @@ texture = ExtResource( 4 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exit/Area2D"]
 scale = Vector2( 3, 3 )
 shape = SubResource( 8 )
+
+[node name="ActionComboTest" type="Node" parent="."]
+script = ExtResource( 9 )
 [connection signal="body_entered" from="Ladders" to="Ladders" method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Ladders" to="Ladders" method="_on_Area2D_body_exited"]

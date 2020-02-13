@@ -1,14 +1,77 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://src/Actors/PlayerCharacter/Scripts/PlatformMovement.gd" type="Script" id=1]
 
 [sub_resource type="StreamTexture" id=1]
-load_path = "res://.import/StickOdysseyCycle.png-79b1afcd600d29fa7ddad9ef5418f36e.stex"
+load_path = "res://.import/StickOdysseyCycle.png-9db77f3bc37daf82d3d2b8d4af5572f6.stex"
 
 [sub_resource type="CapsuleShape2D" id=2]
 height = 41.7415
 
 [sub_resource type="Animation" id=3]
+resource_name = "Fall"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "Idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 10 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Jump"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 9, 0, 1 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Land"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 3 ]
+}
+
+[sub_resource type="Animation" id=7]
 length = 0.9
 loop = true
 tracks/0/type = "value"
@@ -24,15 +87,51 @@ tracks/0/keys = {
 "values": [ 0, 2, 3, 4, 5, 6, 7, 8, 9 ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=4]
+[sub_resource type="AnimationNodeAnimation" id=8]
+animation = "Fall"
+
+[sub_resource type="AnimationNodeAnimation" id=9]
+animation = "Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=10]
+animation = "Jump"
+
+[sub_resource type="AnimationNodeAnimation" id=11]
+animation = "Land"
+
+[sub_resource type="AnimationNodeAnimation" id=12]
 animation = "Run"
 
-[sub_resource type="AnimationNodeBlendTree" id=5]
-graph_offset = Vector2( 0, 97.5 )
-nodes/Animation/node = SubResource( 4 )
-nodes/Animation/position = Vector2( 320, 160 )
-nodes/output/position = Vector2( 540, 160 )
-node_connections = [ "output", 0, "Animation" ]
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=16]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=19]
+
+[sub_resource type="AnimationNodeStateMachine" id=20]
+states/Fall/node = SubResource( 8 )
+states/Fall/position = Vector2( 395, -54 )
+states/Idle/node = SubResource( 9 )
+states/Idle/position = Vector2( 136, 68 )
+states/Jump/node = SubResource( 10 )
+states/Jump/position = Vector2( 212, -55.4974 )
+states/Land/node = SubResource( 11 )
+states/Land/position = Vector2( 524, -51.4974 )
+states/Run/node = SubResource( 12 )
+states/Run/position = Vector2( 449, 68 )
+transitions = [ "Idle", "Run", SubResource( 13 ), "Idle", "Jump", SubResource( 14 ), "Run", "Idle", SubResource( 15 ), "Jump", "Fall", SubResource( 16 ), "Fall", "Run", SubResource( 17 ), "Fall", "Idle", SubResource( 18 ), "Run", "Jump", SubResource( 19 ) ]
+start_node = "Idle"
+graph_offset = Vector2( 0, -120.033 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=21]
 
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 48
@@ -45,7 +144,7 @@ position = Vector2( 0, -32 )
 texture = SubResource( 1 )
 vframes = 4
 hframes = 3
-frame = 2
+frame = 10
 region_rect = Rect2( 0, 0, 64, 64 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -53,9 +152,14 @@ position = Vector2( 0, -30 )
 shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Run = SubResource( 3 )
+anims/Fall = SubResource( 3 )
+anims/Idle = SubResource( 4 )
+anims/Jump = SubResource( 5 )
+anims/Land = SubResource( 6 )
+anims/Run = SubResource( 7 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 5 )
+tree_root = SubResource( 20 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
+parameters/playback = SubResource( 21 )

@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "InputCommands",
 "language": "GDScript",
 "path": "res://src/Actors/PlayerCharacter/Scripts/InputCommands.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "PlatformMovement",
+"language": "GDScript",
+"path": "res://src/Actors/PlayerCharacter/Scripts/PlatformMovement.gd"
 } ]
 _global_script_class_icons={
 "Actor": "",
-"InputCommands": ""
+"InputCommands": "",
+"PlatformMovement": ""
 }
 
 [application]

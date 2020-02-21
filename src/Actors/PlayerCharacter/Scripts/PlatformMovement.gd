@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name PlatformMovement
 
 const UP = Vector2(0,-1)
 const GRAVITY = 24
@@ -16,6 +17,7 @@ var ladderFriction = 0.5
 var state_machine
 
 onready var mySprite = $Sprite	
+onready var combo_system = $InputCommands
 
 func _ready() -> void:
 	state_machine = $AnimationTree.get("parameters/playback")
@@ -26,12 +28,13 @@ func _physics_process(delta):
 	if not isClimbing: 
 		movement.y += modGravity
 	
-	move()
+	move()	
+	combo_system.combo_process()	
 	
 	if is_on_floor():
 		movement.x = lerp(movement.x,0,groundFriction)	
-		#state_machine.travel("Land")			
-		jump()			
+		#state_machine.travel("Land")
+		jump()	
 	else:
 		if isClimbing == true:
 			modGravity = 0
@@ -61,8 +64,7 @@ func move():
 		movement.y = min(movement.y + ACCELERATION, MAXSPEED)
 		state_machine.travel("Idle")
 	else:
-		movement.x = 0
-		
+		movement.x = 0	
 	
 	if movement.length() < 25:
 		state_machine.travel("Idle")
@@ -73,10 +75,7 @@ func move():
 	if is_on_floor():
 		if movement.x > 0.1 or movement.x < -0.1:
 			runAnim()
-		
-	#print(movement)
 	
-
 func jump():
 	if Input.is_action_just_pressed("Jump"):
 		movement.y = JUMP_POWER	
@@ -87,4 +86,3 @@ func jump():
 
 func runAnim():
 	state_machine.travel("Run")
-

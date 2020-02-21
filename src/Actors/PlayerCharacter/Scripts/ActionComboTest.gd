@@ -1,35 +1,36 @@
 extends Node
 
 var hitArray = []
-#var sampleComboArray = ["Melee","Melee","Melee"]
+
 const COMBOTIME_DEFAULT = 0.5
 var comboTimer = 0.5
 var isComboStarted = false
+onready var anim = get_parent().get_node("AnimationTree").get("parameters/playback")
+var actionKeys = ["Melee","Shoot","WalkL","WalkR"]
 	
 var combo_dict = {
 	["Melee","Melee","Melee"]: "Triple Strike", 
-	["Shoot", "Melee", "Melee"]:"Shoot And Strike", 
-	["Shoot", "Shoot", "Shoot"]:"Burst"}
+	["Shoot", "Melee", "Melee"]: "Shoot And Strike", 
+	["Shoot", "Shoot", "Shoot"]: "Burst"}
 
-func _process(delta: float) -> void:
-	
-	if comboTimer<=0:
+func combo_process():
+	if comboTimer <= 0:
 		hitArray.clear()
 		comboTimer = COMBOTIME_DEFAULT
 		isComboStarted = false
+		return	
 	
-	if Input.is_action_just_pressed("Melee"):
-		comboInputs("Melee")
+	if Input.is_action_just_pressed(actionKeys[0]):
+		comboInputs(actionKeys[0])
 		print(hitArray)
 		
-	if Input.is_action_just_pressed("Shoot"):
-		comboInputs("Shoot")
+	if Input.is_action_just_pressed(actionKeys[1]):
+		comboInputs(actionKeys[1])
 		print(hitArray)
 		
-	comboTimer -= 1* delta
+	comboTimer -= 1* get_physics_process_delta_time()
 		
-	checkCombo()
-	
+	checkCombo()	
 	pass
 	
 func comboInputs(var hitType):
@@ -40,18 +41,8 @@ func comboInputs(var hitType):
 	pass
 
 func checkCombo():	
-	if combo_dict.has(hitArray) and isComboStarted:
-		print(combo_dict.get(hitArray))
+	if combo_dict.has(hitArray) and isComboStarted:	
+		print(combo_dict.get(hitArray))	
+		anim.travel(combo_dict.get(hitArray))
 		isComboStarted = false
-		#print(points_dir.values())
-	pass
-	
-func testDictionary():
-	# This is just for testing dictionary in general, code is from Godot website
-	# Later switch to having all the known combos as Keys and combo Names 
-	# as values. Names will be used to call the animation names when that
-	# functionality is implemented.
-	pass
-	
-	
-	
+			

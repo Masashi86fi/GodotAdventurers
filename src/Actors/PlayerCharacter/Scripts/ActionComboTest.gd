@@ -5,10 +5,8 @@ var hitArray = []
 const COMBOTIME_DEFAULT = 0.5
 var comboTimer = 0.5
 var isComboStarted = false
-
-var my_dir = {}
 	
-var points_dir = {
+var combo_dict = {
 	["Melee","Melee","Melee"]: "Triple Strike", 
 	["Shoot", "Melee", "Melee"]:"Shoot And Strike", 
 	["Shoot", "Shoot", "Shoot"]:"Burst"}
@@ -42,8 +40,8 @@ func comboInputs(var hitType):
 	pass
 
 func checkCombo():	
-	if points_dir.has(hitArray) and isComboStarted:
-		print(points_dir.get(hitArray))
+	if combo_dict.has(hitArray) and isComboStarted:
+		print(combo_dict.get(hitArray))
 		isComboStarted = false
 		#print(points_dir.values())
 	pass

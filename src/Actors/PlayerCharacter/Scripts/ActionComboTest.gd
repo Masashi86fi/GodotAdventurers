@@ -1,11 +1,17 @@
 extends Node
 
 var hitArray = []
-var sampleComboArray = ["Melee","Melee","Melee"]
-var otherComboTest = ["Shoot", "Melee", "Melee"]
+#var sampleComboArray = ["Melee","Melee","Melee"]
 const COMBOTIME_DEFAULT = 0.5
 var comboTimer = 0.5
 var isComboStarted = false
+
+var my_dir = {}
+	
+var points_dir = {
+	["Melee","Melee","Melee"]: "Triple Strike", 
+	["Shoot", "Melee", "Melee"]:"Shoot And Strike", 
+	["Shoot", "Shoot", "Shoot"]:"Burst"}
 
 func _process(delta: float) -> void:
 	
@@ -35,14 +41,11 @@ func comboInputs(var hitType):
 	isComboStarted = true
 	pass
 
-func checkCombo():
-	if hitArray == sampleComboArray and isComboStarted:
-		print("3 melee combo")
+func checkCombo():	
+	if points_dir.has(hitArray) and isComboStarted:
+		print(points_dir.get(hitArray))
 		isComboStarted = false
-	
-	if hitArray == otherComboTest and isComboStarted:
-		print("2 melee 1 shoot combo")
-		isComboStarted = false		
+		#print(points_dir.values())
 	pass
 	
 func testDictionary():
@@ -50,12 +53,7 @@ func testDictionary():
 	# Later switch to having all the known combos as Keys and combo Names 
 	# as values. Names will be used to call the animation names when that
 	# functionality is implemented.
-	var d = {4: 5, "A key": "A value", 28: [1, 2, 3]}
-	d["Hi!"] = 0
-	d = {
-	22: "value",
-	"some_key": 2,
-	"other_key": [2, 3, 4],
-	"more_key": "Hello"
-	}	
 	pass
+	
+	
+	

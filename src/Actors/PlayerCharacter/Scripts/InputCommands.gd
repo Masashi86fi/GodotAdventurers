@@ -1,13 +1,7 @@
 extends Node
 class_name InputCommands
 
-enum ActionButtons {NONE, PUNCH, SHOOT, BLOCK, USE, JUMP}
-
-func _process(delta: float) -> void:
-	#print(readActionButtons())
-	#print(readAxisInputs())
-	
-	pass
+#enum ActionButtons {NONE, PUNCH, SHOOT, BLOCK, USE, JUMP}
 	
 func readAxisInputs() -> Vector2:
 	var axisRight = Input.get_action_strength("WalkR")
@@ -17,20 +11,23 @@ func readAxisInputs() -> Vector2:
 	var axisValues = Vector2(axisRight - axisLeft,axisDown - axisUp)
 	return axisValues
 	
-func readActionButtons() -> int:
-	var buttonID = 0
+func readActionButtons() -> String:
+	var buttonID = ""
 	if Input.is_action_just_pressed("Shoot"):
-		buttonID = ActionButtons.SHOOT
+		buttonID = "Shoot"
 	elif Input.is_action_just_pressed("Melee"):
-		buttonID = ActionButtons.PUNCH
+		buttonID = "Melee"
 	elif Input.is_action_just_pressed("Block"):
-		buttonID = ActionButtons.BLOCK
+		buttonID = "Block"
 	elif Input.is_action_just_pressed("Use"):
-		buttonID = ActionButtons.USE
+		buttonID = "Use"
 	elif Input.is_action_just_pressed("Jump"):
-		buttonID = ActionButtons.JUMP
+		buttonID = "Jump"
+	elif Input.is_action_just_pressed("Shoot"):
+		buttonID = "Shoot"
 	else:
-		buttonID = ActionButtons.NONE
+		buttonID = ""
 	
+	#print(buttonID)
 	return buttonID
 	

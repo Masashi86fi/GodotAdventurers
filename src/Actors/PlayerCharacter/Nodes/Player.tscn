@@ -1,7 +1,8 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
-[ext_resource path="res://src/Actors/PlayerCharacter/Scripts/PlatformMovement.gd" type="Script" id=1]
+[ext_resource path="res://src/Actors/PlayerCharacter/Scripts/PlatformMovement2.gd" type="Script" id=1]
 [ext_resource path="res://src/Actors/PlayerCharacter/Scripts/ActionComboTest.gd" type="Script" id=2]
+[ext_resource path="res://src/Actors/PlayerCharacter/Scripts/InputCommands.gd" type="Script" id=3]
 
 [sub_resource type="StreamTexture" id=1]
 load_path = "res://.import/StickOdysseyCycle.png-9db77f3bc37daf82d3d2b8d4af5572f6.stex"
@@ -136,7 +137,7 @@ states/Fall/position = Vector2( 395, -54 )
 states/Idle/node = SubResource( 9 )
 states/Idle/position = Vector2( 136, 68 )
 states/Jump/node = SubResource( 10 )
-states/Jump/position = Vector2( 212, -55.4974 )
+states/Jump/position = Vector2( 205, -54 )
 states/Land/node = SubResource( 11 )
 states/Land/position = Vector2( 524, -51.4974 )
 states/Run/node = SubResource( 12 )
@@ -145,7 +146,7 @@ states/Run/position = Vector2( 449, 68 )
 "states/Triple Strike/position" = Vector2( 56, -132.497 )
 transitions = [ "Idle", "Run", SubResource( 14 ), "Idle", "Jump", SubResource( 15 ), "Run", "Idle", SubResource( 16 ), "Jump", "Fall", SubResource( 17 ), "Fall", "Run", SubResource( 18 ), "Fall", "Idle", SubResource( 19 ), "Run", "Jump", SubResource( 20 ), "Idle", "Triple Strike", SubResource( 21 ), "Run", "Triple Strike", SubResource( 22 ), "Triple Strike", "Idle", SubResource( 23 ), "Triple Strike", "Run", SubResource( 24 ) ]
 start_node = "Idle"
-graph_offset = Vector2( -157.329, -173.089 )
+graph_offset = Vector2( -157.329, -207.013 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=26]
 
@@ -154,6 +155,9 @@ collision_mask = 48
 script = ExtResource( 1 )
 
 [node name="InputCommands" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="ComboControl" type="Node" parent="."]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -161,7 +165,7 @@ position = Vector2( 0, -32 )
 texture = SubResource( 1 )
 vframes = 4
 hframes = 3
-frame = 10
+frame = 1
 region_rect = Rect2( 0, 0, 64, 64 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

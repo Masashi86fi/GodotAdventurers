@@ -17,7 +17,8 @@ var ladderFriction = 0.5
 var state_machine
 
 onready var mySprite = $Sprite	
-onready var combo_system = $InputCommands
+onready var combo_system = $ComboControl
+
 
 func _ready() -> void:
 	state_machine = $AnimationTree.get("parameters/playback")

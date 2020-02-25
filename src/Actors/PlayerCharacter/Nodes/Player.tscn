@@ -165,7 +165,7 @@ position = Vector2( 0, -32 )
 texture = SubResource( 1 )
 vframes = 4
 hframes = 3
-frame = 1
+frame = 10
 region_rect = Rect2( 0, 0, 64, 64 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -184,3 +184,26 @@ tree_root = SubResource( 25 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 26 )
+
+[node name="RayPointer" type="Node" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="RayPointer"]
+position = Vector2( 0, -48 )
+enabled = true
+cast_to = Vector2( 16, 0 )
+collision_mask = 16
+collide_with_areas = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+limit_left = -1000000
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+offset_h = 0.08
+drag_margin_left = 0.16
+drag_margin_top = 0.32
+drag_margin_right = 0.16
+drag_margin_bottom = 0.16
+editor_draw_limits = true
+editor_draw_drag_margin = true

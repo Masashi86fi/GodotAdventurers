@@ -8,6 +8,8 @@ const JUMP_POWER = -512
 var isClimbing = false
 var canClimb = false
 var canJump = false
+var canRope = false
+var hLadder = false
 var movement = Vector2()
 var friction = false	
 var modGravity = 0.0
@@ -15,6 +17,9 @@ var groundFriction = 0.15
 var airResistance = 0.10
 var ladderFriction = 0.5
 var state_machine
+
+var input_axis
+var inputAction
 
 onready var mySprite = $Sprite	
 onready var combo_system = $ComboControl
@@ -38,13 +43,32 @@ func _physics_process(delta):
 			canJump = false
 	
 	move()
-	combo_system.combo_process()
+	readActionButtons()
+	
 	
 	movement = move_and_slide(movement, UP,false)
 	
-func move():	
-	var currentState= state_machine.get_current_node()
-	var input_axis = input_commands.call("readAxisInputs")
+func readAxis():
+	input_axis = input_commands.call("readAxisInputs")
+	pass
+
+func readActionButtons():
+	inputAction = input_commands.call("readActionButtons")
+	
+	combo_system.combo_process()	
+	
+	if canJump:
+		jump()	
+		
+	
+	
+	
+	
+	pass
+
+func move():
+	readAxis()
+	var currentState= state_machine.get_current_node()	
 			
 	if input_axis.x > 0:
 		#movement.x += input_axis.x * ACCELERATION
@@ -65,13 +89,15 @@ func move():
 	if movement.y > 50 and not isClimbing:
 		state_machine.travel("Fall")	
 	
-	if canJump:
-		jump()	
 		
 	if canClimb:	
-		climbing(input_axis)
+		ladder(input_axis)
 		
-func climbing(inputs):
+	if canRope:
+		rope(input_axis)
+		
+		
+func ladder(inputs):
 	
 	if inputs.y > 0:
 		isClimbing = true
@@ -83,11 +109,28 @@ func climbing(inputs):
 	
 	if isClimbing:		
 		modGravity = 0
-		movement.x = lerp(movement.x,0,groundFriction)
+		movement.x = lerp(movement.normalized().x,0,1)
 		movement.y = lerp(movement.y,0,groundFriction)
 		canJump = true
-		state_machine.travel("Idle")	
+		state_machine.travel("Idle")		
 	pass
+
+func rope(inputs):
+	
+	if inputs.y > 0:
+		hLadder = true		
+		
+	if inputs.y < 0:
+		hLadder = true		
+	
+	if hLadder:
+		modGravity = 0
+		movement.y = 0
+		movement.x = lerp(movement.x,0,airResistance)
+		canJump = true
+		state_machine.travel("Idle")
+	pass
+	
 	
 func jump():
 	if Input.is_action_just_pressed("Jump"):
@@ -95,6 +138,9 @@ func jump():
 		state_machine.travel("Jump")
 		if isClimbing:
 			isClimbing = false		
+		
+		if hLadder:
+			hLadder = false		
 	pass
 
 func runAnim():

@@ -103,6 +103,8 @@ Block={
 2d_physics/layer_4="collectible"
 2d_physics/layer_5="world"
 2d_physics/layer_6="Ladder"
+2d_physics/layer_7="horizontalLadder"
+2d_physics/layer_8="ledge"
 
 [rendering]
 

@@ -8,12 +8,10 @@
 [ext_resource path="res://src/LevelObjects/Sprites/Ladders.png" type="Texture" id=6]
 [ext_resource path="res://src/LevelObjects/Scripts/Ladder.gd" type="Script" id=7]
 [ext_resource path="res://src/LevelObjects/Scripts/ExitLevel.gd" type="Script" id=8]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 32, 160 )
+[ext_resource path="res://src/LevelObjects/Nodes/Ropes.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 128, 16 )
+extents = Vector2( 32, 160 )
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 0, 0, 32, 0, 16.4569, 15.4522, 0, 32 )
@@ -111,6 +109,8 @@ region_rect = Rect2( 0, 0, 128, 128 )
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 384, 416 )
 
+[node name="Ropes" parent="." instance=ExtResource( 9 )]
+
 [node name="Ladders" type="Area2D" parent="."]
 z_index = -1
 script = ExtResource( 7 )
@@ -123,13 +123,10 @@ region_rect = Rect2( 0, 0, 64, 64 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ladders"]
 position = Vector2( 160, 288 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Ladders" parent="Ladders" instance=ExtResource( 2 )]
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Ladders"]
-position = Vector2( 384, 256 )
-shape = SubResource( 2 )
+tile_data = PoolIntArray( 131074, 0, 0, 196610, 0, 0, 262146, 0, 0, 327682, 0, 0, 393218, 0, 0 )
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2( -256, -256 )

@@ -5,6 +5,7 @@ const GRAVITY = 24
 const ACCELERATION = 32
 const MAXSPEED = 256
 const JUMP_POWER = -512
+const PROJECTILE = preload("res://src/Actors/PlayerCharacter/Nodes/Projectile.tscn")
 var isClimbing = false
 var canClimb = false
 var canJump = false
@@ -12,7 +13,7 @@ var canRope = false
 var hLadder = false
 var movement = Vector2()
 var friction = false	
-var modGravity = 0.0
+export var modGravity = 0.0
 var groundFriction = 0.15
 var airResistance = 0.10
 var ladderFriction = 0.5
@@ -53,17 +54,13 @@ func readAxis():
 	pass
 
 func readActionButtons():
-	inputAction = input_commands.call("readActionButtons")
-	
+	inputAction = input_commands.call("readActionButtons")	
+	shoot()
+	melee()
 	combo_system.combo_process()	
 	
 	if canJump:
 		jump()	
-		
-	
-	
-	
-	
 	pass
 
 func move():
@@ -74,11 +71,15 @@ func move():
 		#movement.x += input_axis.x * ACCELERATION
 		movement.x = min(movement.x + (input_axis.x * ACCELERATION), MAXSPEED)
 		mySprite.flip_h = false		
+		if sign($WeaponControl.scale.x) == -1:
+			$WeaponControl.scale.x *=-1
 	
 	if input_axis.x < 0:
 		#movement.x += input_axis.x * ACCELERATION
 		movement.x = max(movement.x + (input_axis.x * ACCELERATION), -MAXSPEED)
-		mySprite.flip_h = true			
+		mySprite.flip_h = true	
+		if sign($WeaponControl.scale.x) == 1:
+			$WeaponControl.scale.x *= -1
 	
 	if input_axis.abs().x > 0.1 and is_on_floor():
 		runAnim()	
@@ -87,15 +88,13 @@ func move():
 		state_machine.travel("Idle")
 	
 	if movement.y > 50 and not isClimbing:
-		state_machine.travel("Fall")	
-	
+		state_machine.travel("Fall")		
 		
 	if canClimb:	
 		ladder(input_axis)
 		
 	if canRope:
 		rope(input_axis)
-		
 		
 func ladder(inputs):
 	
@@ -112,16 +111,16 @@ func ladder(inputs):
 		movement.x = lerp(movement.normalized().x,0,1)
 		movement.y = lerp(movement.y,0,groundFriction)
 		canJump = true
-		state_machine.travel("Idle")		
+		state_machine.travel("Idle")
 	pass
 
 func rope(inputs):
 	
 	if inputs.y > 0:
-		hLadder = true		
+		hLadder = true	
 		
 	if inputs.y < 0:
-		hLadder = true		
+		hLadder = true	
 	
 	if hLadder:
 		modGravity = 0
@@ -131,13 +130,12 @@ func rope(inputs):
 		state_machine.travel("Idle")
 	pass
 	
-	
 func jump():
-	if Input.is_action_just_pressed("Jump"):
+	if input_commands.readActionButtons() == "Jump":
 		movement.y = JUMP_POWER	
-		state_machine.travel("Jump")
+		state_machine.travel(input_commands.readActionButtons())
 		if isClimbing:
-			isClimbing = false		
+			isClimbing = false	
 		
 		if hLadder:
 			hLadder = false		
@@ -145,3 +143,24 @@ func jump():
 
 func runAnim():
 	state_machine.travel("Run")
+	
+func shoot():
+	if input_commands.readActionButtons() == "Shoot":
+		state_machine.start(input_commands.readActionButtons())
+	pass
+	
+func melee():
+	if input_commands.readActionButtons() == "Melee":
+		state_machine.start(input_commands.readActionButtons())
+	
+func projectile():
+	var projectile = PROJECTILE.instance()
+	if sign($WeaponControl.scale.x) == 1:
+		projectile.set_projectile_direction(1)
+	else:
+		projectile.set_projectile_direction(-1)
+		
+	get_parent().add_child(projectile)
+	projectile.position = $WeaponControl/RangedWeaponPoint.global_position
+	
+	pass

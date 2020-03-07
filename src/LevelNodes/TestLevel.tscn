@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/Actors/PlayerCharacter/Nodes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/LevelObjects/Nodes/Ladders.tscn" type="PackedScene" id=2]
@@ -10,8 +10,11 @@
 [ext_resource path="res://src/LevelObjects/Scripts/ExitLevel.gd" type="Script" id=8]
 [ext_resource path="res://src/LevelObjects/Nodes/Ropes.tscn" type="PackedScene" id=9]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 160 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 0, 0, 32, 0, 16.4569, 15.4522, 0, 32 )
@@ -113,6 +116,7 @@ position = Vector2( 384, 416 )
 
 [node name="Ladders" type="Area2D" parent="."]
 z_index = -1
+collision_layer = 32
 script = ExtResource( 7 )
 
 [node name="Sprite" type="Sprite" parent="Ladders"]
@@ -123,7 +127,15 @@ region_rect = Rect2( 0, 0, 64, 64 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ladders"]
 position = Vector2( 160, 288 )
+shape = SubResource( 1 )
+
+[node name="OneWayBlocker" type="StaticBody2D" parent="Ladders"]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ladders/OneWayBlocker"]
+position = Vector2( 160, 144 )
 shape = SubResource( 2 )
+one_way_collision = true
 
 [node name="Ladders" parent="Ladders" instance=ExtResource( 2 )]
 tile_data = PoolIntArray( 131074, 0, 0, 196610, 0, 0, 262146, 0, 0, 327682, 0, 0, 393218, 0, 0 )
@@ -152,3 +164,4 @@ scale = Vector2( 3, 3 )
 shape = SubResource( 8 )
 [connection signal="body_entered" from="Ladders" to="Ladders" method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Ladders" to="Ladders" method="_on_Area2D_body_exited"]
+[connection signal="tree_entered" from="Ladders/OneWayBlocker" to="Ladders/OneWayBlocker" method="_on_OneWayBlocker_tree_entered"]

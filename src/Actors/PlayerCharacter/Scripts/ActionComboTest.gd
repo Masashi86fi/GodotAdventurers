@@ -4,15 +4,17 @@ var hitArray = []
 
 const COMBOTIME_DEFAULT = 0.5
 var comboTimer = 0.5
+var comboCooldown = 0.25
 var isComboStarted = false
 onready var anim = get_parent().get_node("AnimationTree").get("parameters/playback")
 onready var input_commands = get_parent().get_node("InputCommands")
 onready var tree_root = get_parent().get_node("AnimationTree").get("tree_root")	
 
 var combo_dict = {
-	["Melee","Melee","Melee"]: "Triple Strike", 
+	["Melee","Melee"]: "OneTwoPunch", 
 	["Shoot", "Melee", "Melee"]: "Shoot And Strike", 
-	["Shoot", "Shoot", "Shoot"]: "Burst"}
+	["Shoot", "Shoot", "Shoot"]: "Triple Shot"}
+	
 
 func combo_process():
 	var actionKey = input_commands.call("readActionButtons")
@@ -24,7 +26,8 @@ func combo_process():
 	
 	if actionKey!= "":	
 		comboInputs(actionKey)			
-	comboTimer -= 1* get_physics_process_delta_time()		
+	
+	comboTimer -= 1* get_physics_process_delta_time()
 	checkCombo()	
 	pass
 	
@@ -38,7 +41,7 @@ func comboInputs(var hitType):
 func checkCombo():	
 	if combo_dict.has(hitArray) and isComboStarted:		
 		if tree_root.has_node(combo_dict.get(hitArray)):
-			anim.travel(combo_dict.get(hitArray))
+			anim.start(combo_dict.get(hitArray))
 			print(combo_dict.get(hitArray))	
-		isComboStarted = false
+			isComboStarted = false
 			

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/StickOdysseyCycle.png-9db77f3bc37daf82d3d2b8d4af5572f6.stex"
+path="res://.import/SpaceOdysseyActions.png-8d2990868f16fc7186976ff5383d45ef.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://StickOdysseyCycle.png"
-dest_files=[ "res://.import/StickOdysseyCycle.png-9db77f3bc37daf82d3d2b8d4af5572f6.stex" ]
+source_file="res://src/Actors/PlayerCharacter/Sprites/SpaceOdysseyActions.png"
+dest_files=[ "res://.import/SpaceOdysseyActions.png-8d2990868f16fc7186976ff5383d45ef.stex" ]
 
 [params]
 

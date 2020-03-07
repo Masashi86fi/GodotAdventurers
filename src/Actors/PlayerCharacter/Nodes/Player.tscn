@@ -1,11 +1,11 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://src/Actors/PlayerCharacter/Scripts/PlatformMovement2.gd" type="Script" id=1]
 [ext_resource path="res://src/Actors/PlayerCharacter/Scripts/ActionComboTest.gd" type="Script" id=2]
 [ext_resource path="res://src/Actors/PlayerCharacter/Scripts/InputCommands.gd" type="Script" id=3]
 
 [sub_resource type="StreamTexture" id=1]
-load_path = "res://.import/StickOdysseyCycle.png-9db77f3bc37daf82d3d2b8d4af5572f6.stex"
+load_path = "res://.import/StickOdysseyCycle.png-79b1afcd600d29fa7ddad9ef5418f36e.stex"
 
 [sub_resource type="CapsuleShape2D" id=2]
 height = 41.7415
@@ -42,6 +42,23 @@ tracks/0/keys = {
 "values": [ 10 ]
 }
 
+[sub_resource type="Animation" id=37]
+resource_name = "Jab"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 19, 20, 21 ]
+}
+
 [sub_resource type="Animation" id=5]
 resource_name = "Jump"
 length = 0.5
@@ -73,6 +90,21 @@ tracks/0/keys = {
 "values": [ 3 ]
 }
 
+[sub_resource type="Animation" id=38]
+resource_name = "OneTwoPunch"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4, 0.5, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 21, 22, 21, 20, 23 ]
+}
+
 [sub_resource type="Animation" id=7]
 length = 0.9
 loop = true
@@ -89,6 +121,96 @@ tracks/0/keys = {
 "values": [ 0, 2, 3, 4, 5, 6, 7, 8, 9 ]
 }
 
+[sub_resource type="Animation" id=27]
+resource_name = "Shoot"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 12, 11 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "projectile"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("WeaponControl/RangedWeaponPoint:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 32.1499, -42.454 ) ]
+}
+
+[sub_resource type="Animation" id=28]
+resource_name = "TripleShot"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 11, 14, 15, 16, 15, 16, 15, 16, 11 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.3, 0.5, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "projectile"
+}, {
+"args": [  ],
+"method": "projectile"
+}, {
+"args": [  ],
+"method": "projectile"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("WeaponControl/RangedWeaponPoint:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.7 ),
+"transitions": PoolRealArray( 9.39294e-06, 6.876e-06 ),
+"update": 0,
+"values": [ Vector2( 26.1543, -43.0536 ), Vector2( 24.468, -43.054 ) ]
+}
+
 [sub_resource type="AnimationNodeAnimation" id=8]
 animation = "Fall"
 
@@ -101,11 +223,20 @@ animation = "Jump"
 [sub_resource type="AnimationNodeAnimation" id=11]
 animation = "Land"
 
+[sub_resource type="AnimationNodeAnimation" id=39]
+animation = "Jab"
+
+[sub_resource type="AnimationNodeAnimation" id=40]
+animation = "OneTwoPunch"
+
 [sub_resource type="AnimationNodeAnimation" id=12]
 animation = "Run"
 
-[sub_resource type="AnimationNodeAnimation" id=13]
-animation = "Fall"
+[sub_resource type="AnimationNodeAnimation" id=29]
+animation = "Shoot"
+
+[sub_resource type="AnimationNodeAnimation" id=30]
+animation = "TripleShot"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=14]
 
@@ -121,14 +252,30 @@ animation = "Fall"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=20]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=21]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=22]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=23]
+[sub_resource type="AnimationNodeStateMachineTransition" id=32]
 switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=24]
+[sub_resource type="AnimationNodeStateMachineTransition" id=33]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=34]
+xfade_time = 0.5
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=35]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=36]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=41]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=42]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=43]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=44]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=45]
 switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id=25]
@@ -140,13 +287,19 @@ states/Jump/node = SubResource( 10 )
 states/Jump/position = Vector2( 205, -54 )
 states/Land/node = SubResource( 11 )
 states/Land/position = Vector2( 524, -51.4974 )
+states/Melee/node = SubResource( 39 )
+states/Melee/position = Vector2( 136, 164.96 )
+states/OneTwoPunch/node = SubResource( 40 )
+states/OneTwoPunch/position = Vector2( 312.115, 216.96 )
 states/Run/node = SubResource( 12 )
 states/Run/position = Vector2( 449, 68 )
-"states/Triple Strike/node" = SubResource( 13 )
-"states/Triple Strike/position" = Vector2( 56, -132.497 )
-transitions = [ "Idle", "Run", SubResource( 14 ), "Idle", "Jump", SubResource( 15 ), "Run", "Idle", SubResource( 16 ), "Jump", "Fall", SubResource( 17 ), "Fall", "Run", SubResource( 18 ), "Fall", "Idle", SubResource( 19 ), "Run", "Jump", SubResource( 20 ), "Idle", "Triple Strike", SubResource( 21 ), "Run", "Triple Strike", SubResource( 22 ), "Triple Strike", "Idle", SubResource( 23 ), "Triple Strike", "Run", SubResource( 24 ) ]
+states/Shoot/node = SubResource( 29 )
+states/Shoot/position = Vector2( -187.329, 31.5026 )
+"states/Triple Shot/node" = SubResource( 30 )
+"states/Triple Shot/position" = Vector2( -125.885, -62.219 )
+transitions = [ "Idle", "Run", SubResource( 14 ), "Idle", "Jump", SubResource( 15 ), "Run", "Idle", SubResource( 16 ), "Jump", "Fall", SubResource( 17 ), "Fall", "Run", SubResource( 18 ), "Fall", "Idle", SubResource( 19 ), "Run", "Jump", SubResource( 20 ), "Triple Shot", "Idle", SubResource( 32 ), "Shoot", "Idle", SubResource( 33 ), "Shoot", "Triple Shot", SubResource( 34 ), "Idle", "Shoot", SubResource( 35 ), "Idle", "Triple Shot", SubResource( 36 ), "Idle", "Melee", SubResource( 41 ), "Melee", "Idle", SubResource( 42 ), "OneTwoPunch", "Idle", SubResource( 43 ), "Melee", "OneTwoPunch", SubResource( 44 ), "OneTwoPunch", "Melee", SubResource( 45 ) ]
 start_node = "Idle"
-graph_offset = Vector2( -157.329, -207.013 )
+graph_offset = Vector2( -513.885, -11.8279 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=26]
 
@@ -163,21 +316,25 @@ script = ExtResource( 2 )
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -32 )
 texture = SubResource( 1 )
-vframes = 4
-hframes = 3
+vframes = 5
+hframes = 5
 frame = 10
 region_rect = Rect2( 0, 0, 64, 64 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -30 )
+position = Vector2( 0, -32 )
 shape = SubResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Fall = SubResource( 3 )
 anims/Idle = SubResource( 4 )
+anims/Jab = SubResource( 37 )
 anims/Jump = SubResource( 5 )
 anims/Land = SubResource( 6 )
+anims/OneTwoPunch = SubResource( 38 )
 anims/Run = SubResource( 7 )
+anims/Shoot = SubResource( 27 )
+anims/TripleShot = SubResource( 28 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource( 25 )
@@ -207,3 +364,8 @@ drag_margin_right = 0.16
 drag_margin_bottom = 0.16
 editor_draw_limits = true
 editor_draw_drag_margin = true
+
+[node name="WeaponControl" type="Node2D" parent="."]
+
+[node name="RangedWeaponPoint" type="Position2D" parent="WeaponControl"]
+position = Vector2( 32.1499, -42.454 )
